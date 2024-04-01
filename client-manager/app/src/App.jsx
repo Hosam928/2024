@@ -1,13 +1,13 @@
 import React from 'react'
 import './App.css'
+import Result from './components/Result'
 
 // Función Flecha o Arrow Function
 const App = () => {
     // Lo que ejecuta la función
     return (
     <main className='react-calculator'>
-        <div className="result">
-        </div>
+        <Result/>
         <div className="numbers">
             <button>1</button>
             <button>2</button>
