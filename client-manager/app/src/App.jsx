@@ -7,7 +7,7 @@ const App = () => {
     // Lo que ejecuta la función
     return (
     <main className='react-calculator'>
-        <Result/>
+        <Result value={"0"}/>
         <div className="numbers">
             <button>1</button>
             <button>2</button>
