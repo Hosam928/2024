@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "calc-react-app-cr",
+    "react-calculator": "calc-react-app-cr"
+  },
+  "targets": {},
+  "etags": {}
+}
