@@ -5,7 +5,7 @@ class connection {
 
     function __construct() {
         # DataBase Path
-        $dbPath = "c:\\BestOs\\".$this->dataBase;
+        $dbPath = "c:\\BestOS\\".$this->dataBase;
         
         if( is_file($dbPath) ) {
             $dbDriver = '{Microsoft Access Driver (*.mdb, *.accdb)}'; // ODBC Controller

@@ -1,0 +1,17 @@
+.wrapper__employee .p-datatable .p-datatable-tbody > tr {
+    cursor: pointer;
+}
+
+.wrapper__employee .p-datatable .p-datatable-tbody > tr:hover {
+    background-color: #f1f1f1;
+}
+
+.wrapper__employee .p-fieldset .p-fieldset-legend {
+    text-align: left;
+}
+
+.wrapper__employee-search {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 10px 10px 0;
+}
