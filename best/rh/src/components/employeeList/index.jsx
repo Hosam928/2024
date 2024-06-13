@@ -14,7 +14,7 @@ function EmployeeList({ onRowClick }) {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   
   useEffect(() => {
-    fetch('http://localhost:8081/Api/employee')
+    fetch(`${process.env.REACT_APP_API_URL}/employee`)
      .then(response => response.json())
      .then(json => setData(json));
   }, []);

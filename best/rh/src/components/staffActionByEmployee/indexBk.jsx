@@ -7,8 +7,7 @@ import { Button } from 'primereact/button';
 import { Fieldset } from 'primereact/fieldset';
 import { Dialog } from 'primereact/dialog';
 import './styles.css';
-import imgHeader from '../../assets/img/header.jpg'
-import imgFooter from '../../assets/img/footer.jpg'
+import bgImage from '../../assets/img/bg.jpeg'
 
 function StaffActionByEmployee({ employee }) {
   const [data, setData] = useState([]);
@@ -19,13 +18,12 @@ function StaffActionByEmployee({ employee }) {
   const [selectedAction, setSelectedAction] = useState(null);
 
   const backgroundStyle = {
-    '--background-imgHeader': `url(${imgHeader})`,
-    '--background-imgFooter': `url(${imgFooter})`
+    '--background-image': `url(${bgImage})`
   };
 
   useEffect(() => {
     if (employee && employee.idPersonal) {
-      fetch(`${process.env.REACT_APP_API_URL}/personnelAction?idPersonal=${employee.idPersonal}`)
+      fetch(`http://localhost/Api/personnelAction?idPersonal=${employee.idPersonal}`)
         .then(response => response.json())
         .then(json => setData(json));
     }
@@ -85,91 +83,79 @@ function StaffActionByEmployee({ employee }) {
           </DataTable>
         </div>
       </Fieldset>
-      {/* <Dialog header="Acción Personal" visible={visible} style={backgroundStyle} onHide={() => setVisible(false)}> */}
-      <Dialog visible={visible} style={backgroundStyle} onHide={() => setVisible(false)}>
+      <Dialog header="Acción Personal" visible={visible} style={backgroundStyle} onHide={() => setVisible(false)}>
         <div className="dialog-content">
           {selectedAction ? (
             <>
-              {/* <div className="dialog-row">
+              <div className="dialog-row">
                 <span className="label">Id:</span>
                 <span className="value">{selectedAction.ID_Accion_Pers}</span>
-              </div> */}
-
-              <div className="dialog-row right margin-bottom">
+              </div>
+              <div className="dialog-row">
+                <span className="label">Nombre:</span>
+                <span className="value">{employee.Nombre} {employee.Apellido1} {employee.Apellido2}</span>
+              </div>
+              <div className="dialog-row">
+                <span className="label">Cédula:</span>
+                <span className="value">{employee.Cedula}</span>
+              </div>
+              <div className="dialog-row">
+                <span className="label">Área de Trabajo:</span>
+                <span className="value">{employee.Departamento}</span>
+              </div>
+              <div className="dialog-row">
+                <span className="label">Fecha Emisión:</span>
                 <span className="value">{moment(selectedAction.Fecha_Emision_AP).format('DD/MM/YYYY')}</span>
               </div>
-
               <div className="dialog-row">
-                <span className="label border-top border-bottom border-left border-right bgBlack">Nombre Completo:</span>
-                <span className="value border-top border-bottom border-left border-right">{employee.Nombre} {employee.Apellido1} {employee.Apellido2}</span>
-              </div>
-              
-              <div className="dialog-row margin-bottom">
-                <span className="label border-bottom border-left border-right bgBlack">Cédula:</span>
-                <span className="value border-bottom border-left border-right">{employee.Cedula}</span>
-              </div>
-
-              <div className="dialog-row">
-                <span className='title border-top border-bottom border-left border-right bgBlack'>Información General</span>
-              </div>
-
-              <div className="dialog-row">
-                <span className="label border-bottom border-left border-right">Área de Trabajo:</span>
-                <span className="value border-bottom border-left border-right">{employee.Departamento}</span>
+                <span className="label">Puesto:</span>
+                <span className="value">{employee.Puesto}</span>
               </div>
               <div className="dialog-row">
-                <span className="label border-bottom border-left border-right">Puesto:</span>
-                <span className="value border-bottom border-left border-right">{employee.Puesto}</span>
+                <span className="label">Salario Planilla:</span>
+                <span className="value">${employee.SalarioMensualDol}</span>
               </div>
               <div className="dialog-row">
-                <span className="label border-bottom border-left border-right">Salario Planilla:</span>
-                <span className="value border-bottom border-left border-right">${employee.SalarioMensualDol}</span>
+                <span className="label">Fecha Ingreso:</span>
+                <span className="value">{moment(employee.Fecha_Ingreso).format('DD/MM/YYYY')}</span>
               </div>
               <div className="dialog-row">
-                <span className="label border-bottom border-left border-right">Fecha Ingreso:</span>
-                <span className="value border-bottom border-left border-right">{moment(employee.Fecha_Ingreso).format('DD/MM/YYYY')}</span>
-              </div>
-              <div className="dialog-row margin-bottom">
-                <span className="label border-bottom border-left border-right">Vacaciones a la Fecha:</span>
-                <span className="value border-bottom border-left border-right">{selectedAction.VacationsToDate}</span>
-              </div>
-
-              <div className="dialog-row">
-                <span className='title border-top border-bottom border-left border-right bgBlack'>Acción Personal</span>
+                <span className="label">Acción:</span>
+                <span className="value">{selectedAction.Accion}</span>
               </div>
               <div className="dialog-row">
-                <span className="label border-bottom border-left border-right">Acción:</span>
-                <span className="value border-bottom border-left border-right">{selectedAction.Accion}</span>
+                <span className="label">Vacaciones a la Fecha:</span>
+                <span className="value">{selectedAction.VacationsToDate}</span>
               </div>
 
               {selectedAction.Accion === "Vacaciones" && (
                 <>
                   <div className="dialog-row">
-                    <span className="label border-bottom border-left border-right">Inicio Vacaciones:</span>
-                    <span className="value border-bottom border-left border-right">{moment(selectedAction.Fecha_Ini_Vacaciones).format('DD/MM/YYYY')}</span>
+                    <span className="label">Inicio Vacaciones:</span>
+                    <span className="value">{moment(selectedAction.Fecha_Ini_Vacaciones).format('DD/MM/YYYY')}</span>
                   </div>
                   <div className="dialog-row">
-                    <span className="label border-bottom border-left border-right">Fin Vacaciones:</span>
-                    <span className="value border-bottom border-left border-right">{moment(selectedAction.Fecha_Fin_Vacaciones).format('DD/MM/YYYY')}</span>
+                    <span className="label">Fin Vacaciones:</span>
+                    <span className="value">{moment(selectedAction.Fecha_Fin_Vacaciones).format('DD/MM/YYYY')}</span>
                   </div>
                   <div className="dialog-row">
-                    <span className="label border-bottom border-left border-right">Dias de Vacaciones:</span>
-                    <span className="value border-bottom border-left border-right">{selectedAction.DaysOfVacation}</span>
+                    <span className="label">Dias de Vacaciones:</span>
+                    <span className="value">{selectedAction.DaysOfVacation}</span>
                   </div>
                   <div className="dialog-row">
-                    <span className="label border-bottom border-left border-right">Dias Disponibles:</span>
-                    <span className="value border-bottom border-left border-right">{selectedAction.AvailableDays}</span>
+                    <span className="label">Dias Disponibles:</span>
+                    <span className="value">{selectedAction.AvailableDays}</span>
                   </div>
                   <div className="dialog-row">
-                    <span className="label border-bottom border-left border-right">Regresa a sus Labores:</span>
-                    <span className="value border-bottom border-left border-right">{moment(selectedAction.Fecha_Fin_Vacaciones).add(1, 'days').format('DD/MM/YYYY')}</span>
+                    <span className="label">Regresa a sus Labores:</span>
+                    <span className="value">{moment(selectedAction.Fecha_Fin_Vacaciones).add(1, 'days').format('DD/MM/YYYY')}</span>
                   </div>
                 </>
               )}
 
               <div className="dialog-row">
-                <span className="label border-bottom border-left border-right">Observaciones:</span>
-                <span className="value border-bottom border-left border-right">{selectedAction.Observacion_AP}</span>
+                <span className="label">Observaciones:</span>
+                <span className="value">{selectedAction.Observacion_AP}</span>
               </div>
 
               <div className="btn-wrapper">
