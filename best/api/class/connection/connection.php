@@ -2,10 +2,11 @@
 
 class connection {
     private $dataBase = "BestOS datos_NEW.mdb";
+	private $connection;
 
     function __construct() {
         # DataBase Path
-        $dbPath = "c:\\BestOS\\".$this->dataBase;
+        $dbPath = "C:\\BestOS\\".$this->dataBase;		
         
         if( is_file($dbPath) ) {
             $dbDriver = '{Microsoft Access Driver (*.mdb, *.accdb)}'; // ODBC Controller
@@ -28,15 +29,14 @@ class connection {
         // echo 'Connection to ['.$this->dataBase.'] : Finished ';
     }
 
-    public function convertUTF8($array) {
-        array_walk_recursive($array, function(&$item, $key){
-            if(!mb_detect_encoding($item, 'utf-8', true)){
-                $item = utf8_encode($item);
-            }
-        });
-
-        return $array;
-    }
+	public function convertUTF8($array) {
+		array_walk_recursive($array, function(&$item, $key) {
+			if (is_string($item) && !mb_check_encoding($item, 'UTF-8')) {
+				$item = mb_convert_encoding($item, 'UTF-8', 'ISO-8859-1');
+			}
+		});
+		return $array;
+	}
 
     public function getData($sqlStr) {
         $results = odbc_exec($this->connection, $sqlStr);
